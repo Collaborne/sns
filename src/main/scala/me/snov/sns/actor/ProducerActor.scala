@@ -1,7 +1,7 @@
 package me.snov.sns.actor
 
 import akka.actor.{Actor, ActorLogging, Props}
-import akka.camel.Producer
+import akka.camel.{CamelMessage,Producer}
 
 import spray.json._
 

@@ -1,4 +1,6 @@
 /.idea
+/.ensime*
+/ensime-langserver.log
 /bin
 /project/project
 /project/target

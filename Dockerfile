@@ -17,6 +17,7 @@ RUN apk -Uuv add python py-pip && \
 	apk --purge -v del py-pip && \
 	rm /var/cache/apk/*
 
-ADD https://github.com/s12v/sns/releases/download/$VERSION/sns-$VERSION.jar /sns.jar
+ARG _file=https://github.com/s12v/sns/releases/download/$VERSION/sns-$VERSION.jar
+ADD ${_file} /sns.jar
 
 CMD ["java", "-jar", "/sns.jar"]

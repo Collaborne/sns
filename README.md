@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/s12v/sns.svg?branch=master)](https://travis-ci.org/s12v/sns)
+[![Build Status](https://travis-ci.org/Collaborne/sns.svg?branch=collaborne)](https://travis-ci.org/Collaborne/sns)
 [![codecov](https://codecov.io/gh/s12v/sns/branch/master/graph/badge.svg)](https://codecov.io/gh/s12v/sns)
 [![Docker Pulls](https://img.shields.io/docker/pulls/s12v/sns.svg?maxAge=2592000)]()
 

@@ -1,4 +1,6 @@
-sudo: required
+dist: trusty
+sudo: false
+group: beta
 
 language: scala
 
@@ -10,10 +12,10 @@ jdk:
 
 env:
   global:
-    - DOCKER_HUB_TRIGGER_URL=https://registry.hub.docker.com/u/s12v/sns/trigger
-    - ENDPOINT=http://localhost:9911/
-    - AWS_ACCESS_KEY_ID=foo
-    - AWS_SECRET_ACCESS_KEY=bar
+    - DOCKER_NAME=499577160181.dkr.ecr.eu-west-1.amazonaws.com/s12v/sns
+    - secure: "fO0wq/6PyKToWYtZ0WREc4tuA62KxpysbUiAaj29XOs05nOHsHmp7L/YZ9jQVPjbLT4CvaihVapMjai34YOLU/pFGBfMPTcxK0TAg/egt4MS4qs9Rrf50dCjXv8lhedriEknfOt+7EOkunLZy22dOoovrVkxoNzt0RPAGLMHLtpSEBJBUCq7pFBGvTGUaVO631PR/neBLmhJmpGzyCkZp1saXNXc6+ySRtvn2mfL9QvpwT0kMhkz+VNxcGCKJsAWU1JZXEvjJT4Vkq1zUoD2LAa81AEvYLPQd0Q/WK1GiTP1sUxTUp0k9BsKtFIin0N5lAvqmSaCu6q3OnWJLJR6jKbMKEAS83LJi72NJf8U277S9rgARTWh0PcF74uUHU0PSta3AMluRUIyEQOUW9K1kYgGuWOJO2vBhBhVEJ1Xu3bsxqmthgprz8JI6Vw72fw0q2To8wkzubcrW4laR4oh6UUq6Ne+AbbLu6dz1zOMNSO+0zsX3CfME0IZ5kEfWUY1x7tH8OYzt8eUq4YgvyKEuEt3J+gx8ZG1uImLQ88qzvr12QfEqlGAm+GWTUKh67jmOYy5FzKy8Gb3tAGxyKvLqkzL93VFSuq4XoEvCnrXw2JSZwsdDn+uRUWVBI+hSWSM0zNn1ZFE6SYwHjDJthnIQ2FyMf0MYO11pgbr7LnoE8k="
+    - secure: "AtL469Q3x+cQr6dOVuExVDnntRVpwrGqgk1w9EzkX2dMeZ8dvbbZ/tvTaCo77TZB/yjAKZ300gn4Pgg2kBiKWTPFLDpqQN5h5kMYQzM8B23stgHr6jVANRXv5piX3xJKAIf7aLw+JXE8LM5aqZwNhTi+Suj9tt8sotRn5asO6Z2hFgscjPB+CZEUwp+qS188cYd3mUKp3mVHxtNVK+d2ofsY7WXxkPxOYqYL2aTmgJ0bDh2L3XMuTOqCbg6Rtc7V7KOanJerSxTao+Cxytx8lLeaa6QZutlY3vUaSqybAqiZMK2G/T4EKBQ0tlpj+2cfpByqVu6ItWFE2K8LgiZlb7A9tU3rkc3rMVtMgQfTiuFnccAd9y6s3znlaDaQvlZ/q/Lz4kLqxGKb+bu930Wq6w2zIxCoZAMmfb5VUYY7uEl4rrwoAJanIzNVdUaavN15oZmRPofdq6wqpSr8P/+rGzUE2kpDBz31pAqYTQiwkQAFNUz6nIagtzkXsY7T0z13nSBc9+cK223qIJ8J1/FoBPXgaBfTrkkKefup8SU0bTeIo4KGanONCHj6JplYa3b9WnpFLvMpsMwa7HW7C3dwLizsxM8zV7AfVVKzv+NxuFsE/dGxXpeq5+U+uyoXCq/pkVwf8kdSgk9kj90+wzwz5stGOZd2Fa6Mry3RMN+cv8Y="
+    - secure: "rTHHf4zfUOtvjMdq3mq3jQSB3BpjLc0RoQWgcyGctEjey2JIoj+PkyijgYYcRqSe5I7hiv29yEQaVjLzg6EcQDxgy5NpVUPPPEhboGCIzPhOwDaVIjaP8qGNMPuwVzo9WDWsjUJU35TU0RZbU3+LYdVeh0z4xwZjU5cMlSu0WkSgeSkPlFmEUeeOxSqHL4UNa2jsc5imvtZbpqhAP5XYu/aOYbLjtNqoC16wWAgYp1E+aWSWzTMEojx3uXYJTfRX9q2Se76S+KCNiRG9P2K2AGl8ike9PA4O4ccNizqOUS88q6DVLXOqHhTyFIeuaVryXPnWP6n//kjEL42YHD3m6pjxT9OvOAnzuHG5CUSxO33/LK+eGJ/uGL9lVfwt+AxeEluV56ZjvFqGhaK6eKFNKHuvrXbYJVtQ4XOpL+BHk9RCNrMwebTkL8n4iu3h/GCb4J/A77Lb8Q9z1miY4BTiosJSRF2+hJohPfqlmJXWQUPjIN+jMCb6aD3PuUG3dn2ItWvgZ1qOMG+lAs0EgcCukPROeTpNA7dRe6Xk8aStY700iJaF0u/kYQO7DhNJVG1yiSgdpKku00ADM/SavlzaZBRV4Yr1LoV2S5CvFQ/eP5jQN06dB9rhAdAJsySt6QKDL0yib//15GVct8X4y0o3MsjHai9IQtdurmLV5RZSqgI="
 
 before_cache:
   # Save tagged docker images
@@ -32,6 +34,18 @@ services:
   - docker
 
 before_install:
+  # Calculate the branch/tag information
+  - if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then BASE_NAME=${TRAVIS_BRANCH}; else BASE_NAME=pr${TRAVIS_PULL_REQUEST}; fi
+  - NAME=`echo ${BASE_NAME} | tr -cd '[\-._[:alnum:]]'`
+  - TS=`date +%Y%m%dT%H%M%S`
+  - VERSION_TAG=${NAME}-${TS}-${TRAVIS_COMMIT}
+  - TAGS="${NAME} ${VERSION_TAG}"
+  - if [ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ "${TRAVIS_BRANCH}" = "master" ]; then TAGS="${TAGS} latest"; fi
+
+  # Log in to AWS ECR
+  - pip install --user awscli | cat
+  - eval `$HOME/.local/bin/aws ecr get-login --region eu-west-1 --no-include-email`
+
   # Load cached docker images
   - if [[ -d $HOME/docker ]]; then ls $HOME/docker/*.tar.gz | xargs -I {file} sh -c "zcat {file} | docker load"; fi
 
@@ -49,12 +63,12 @@ script:
     bash <(curl -s https://raw.githubusercontent.com/s12v/wait4port/master/wait4port.sh)
     http://localhost:9911
     http://localhost:9324
-  - bundle exec cucumber
+  - ENDPOINT=http://localhost:9911 AWS_ACCESS_KEY_ID=foo AWS_SECRET_ACCESS_KEY=bar bundle exec cucumber
   - >
     docker run -it
-    -e ENDPOINT="$ENDPOINT"
-    -e AWS_ACCESS_KEY_ID="$AWS_ACCESS_KEY_ID"
-    -e AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY"
+    -e ENDPOINT="http://localhost:9911"
+    -e AWS_ACCESS_KEY_ID="foo"
+    -e AWS_SECRET_ACCESS_KEY="bar"
     -v "$PWD":/tmp -w /tmp --net=host php:7-alpine
     bin/behat
 
@@ -63,26 +77,10 @@ after_failure:
   - cat db.json
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
-  - |
-    if [ "$TRAVIS_BRANCH" = "master" ]; then
-      curl -H 'Content-Type: application/json' \
-      -X POST "${DOCKER_HUB_TRIGGER_URL}/${DOCKER_HUB_TRIGGER_TOKEN}/" \
-      --data '{"source_type": "Branch", "source_name": "master"}'
-    fi
+  - docker build --build-arg _file=$(ls target/scala-2.11/sns-*.jar | tail -1) `echo ${TAGS} | sed -re "s,\b([-._[:alnum:]]+)\b,-t ${DOCKER_NAME}:\1,g"` .
 
 deploy:
-  provider: releases
-  api-key:
-    secure: "iMohs9rpYzhnYdUdCvh+t9crjoF2lcWuRlSCg+3kadXPt0V8lHoPMZio0wNROMtLTkLUqHcZgwHnvZ7T3PwfKrNAoZ7HnQbpXng3CApZgL68zQDwcykb0yOvZDopcjzZ/xPw29wnP8Sl5D6yelGakyx10AyjepHoesDc/hwnj8e0WYB2OflY6TiZja9n/tTXLr6wBhHnbe3b3t14WlRCM2w6CFfOGCo9bVGJG0V0kECZDz7hDYLbsmjhvpbEawUuNJAOM5AzrUetnbaA/TRjieDZF7/jhQiWsd4zlU4L0/JjGc+pNaz0aXk6Soyb4SfopQfIPoKMYYIwqiOkJxRmXCvLVTX6UMi6uUYR1CxpWPHnpVTt5eoEBAQMPHSfZfqz1AJ7PshSqn4iOgKDdw/MBOJFs/0qslE7e98bGQaAm2DwVP+LXw1EpPlC/q7C9TbQV0TP6FoGOyhQUYrF7ySgOfPnAdDoH7oPhrKyLWMrM5i3X0L5jQ7XIa2EgPxlWbsaT9v6SE4/Qo+D9rrfadmCNTWWa1med1OrcS4WWujz2YOKXmdRX5v1k6Wf2b9lok9qw9FpMHqAaC+tyo5kDoIjOzQS587uydm89u6g+TGEAGNyNHmkQj5fE/WaMcsOtq+VYGCFdoT/pvFJg9a4S1qzC6U67yoPjYgXT9++W9JHOro="
-  file: "$(ls $TRAVIS_BUILD_DIR/target/scala-2.11/sns-*.jar | tail -1)"
-  skip_cleanup: true
+  provider: script
+  script: "${SHELL} ./travis-deploy.sh ${DOCKER_NAME} ${TAGS}"
   on:
-    tags: true
     all_branches: true
-
-after_deploy:
-  - >
-    curl -H 'Content-Type: application/json'
-    -X POST "${DOCKER_HUB_TRIGGER_URL}/${DOCKER_HUB_TRIGGER_TOKEN}/"
-    --data "{\"source_type\": \"Tag\", \"source_name\": \"$TRAVIS_TAG\"}"
